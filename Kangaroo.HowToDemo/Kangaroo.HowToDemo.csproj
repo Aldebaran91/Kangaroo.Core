@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>2.0.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kangaroo.Core.Interfaces\Kangaroo.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\Kangaroo.Core\Kangaroo.Core.csproj" />
+  </ItemGroup>
+
+</Project>

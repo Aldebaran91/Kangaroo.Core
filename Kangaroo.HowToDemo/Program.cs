@@ -1,0 +1,165 @@
+﻿using Kangaroo.Core;
+using System;
+
+namespace Kangaroo.HowToDemo
+{
+    class Program
+    {
+        public enum MyEnum
+        {
+            Debug,
+            Warning,
+            Fatal
+        }
+
+        private static void Main(string[] args)
+        {
+            StartAutomaticMax5ItemsExport();
+            Console.WriteLine();
+
+            StartManuelExport();
+            Console.WriteLine();
+
+            StartManuelCategoryExport();
+        }
+
+        public static void StartAutomaticMax5ItemsExport()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(">>>> Kangaroo Demo: Automatic export MAX 5 items");
+            Console.ResetColor();
+
+            // Create kangaroostore instance
+            KangarooStore<Exception> kangaroo = new KangarooStore<Exception>(new KangarooSettings(5));
+
+            // Create kangaroo export handler
+            KangarooExporter<Exception, string> exporter = new KangarooExceptionExporter();
+
+            // Add converter
+            exporter.Converter = new KangarooConvertExcpetionToString();
+
+            // Add filter
+            exporter.Filter = (x) =>
+            {
+                return x is ArgumentException;
+            };
+
+            // Add exporter
+            exporter.Worker = new KangarooExportWorkerStringToConsole();
+
+            // Add exporter to kangaroo store
+            kangaroo.AddExporter(exporter);
+
+            for (int i = 0; i < 7; i++)
+            {
+                Console.WriteLine($">> Add {i + 1}. exception!");
+                kangaroo.AddData(new ArgumentException($"This is an exception message! {i}"));
+            }
+
+            Console.WriteLine(">> END DEMO");
+        }
+
+        public static void StartManuelExport()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(">>>> Kangaroo Demo: Manuel export");
+            Console.ResetColor();
+
+            // Create kangaroostore instance
+            KangarooStore<Exception> kangaroo = new KangarooStore<Exception>();
+
+            // Create kangaroo export handler
+            KangarooExporter<Exception, string> exporter = new KangarooExceptionExporter();
+
+            // Add converter
+            exporter.Converter = new KangarooConvertExcpetionToString();
+
+            // Add filter
+            exporter.Filter = (x) =>
+            {
+                return x is ArgumentException;
+            };
+
+            // Add exporter
+            exporter.Worker = new KangarooExportWorkerStringToConsole();
+
+            // Add exporter to kangaroo store
+            kangaroo.AddExporter(exporter);
+
+            Console.WriteLine($">> Add an exception!");
+            kangaroo.AddData(new ArgumentException("This is an exception message!"));
+
+            Console.WriteLine(">> Start export!");
+            kangaroo.StartManualExport();
+            Console.WriteLine(">> END DEMO");
+        }
+
+        public static void StartManuelCategoryExport()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(">>>> Kangaroo Demo: Manuel export");
+            Console.ResetColor();
+
+            // Create kangaroostore instance
+            KangarooStore<Exception> kangaroo = new KangarooStore<Exception>();
+
+            // Create kangaroo export handler
+            KangarooExporter<Exception, string> exporter = new KangarooExceptionExporter();
+
+            // Add converter
+            exporter.Converter = new KangarooConvertExcpetionToString();
+
+            // Add filter
+            exporter.Filter = (x) =>
+            {
+                return x is ArgumentException;
+            };
+
+            // Add exporter
+            exporter.Worker = new KangarooExportWorkerStringToConsole();
+
+            // Add exporter to kangaroo store
+            kangaroo.AddExporter(exporter, MyEnum.Debug);
+
+            Console.WriteLine($">> Add an exception!");
+            kangaroo.AddData(new ArgumentException("Fatal bug!"), MyEnum.Fatal);
+            kangaroo.AddData(new ArgumentException("Normal bug!"), MyEnum.Debug);
+
+            Console.WriteLine(">> Start export!");
+            kangaroo.StartManualExport();
+            Console.WriteLine(">> END DEMO");
+        }
+
+        public class KangarooConvertExcpetionToString : IKangarooConverter<Exception, string>
+        {
+            public string Convert(Exception data)
+            {
+                return data.Message;
+            }
+        }
+
+        public class KangarooExceptionExporter : KangarooExporter<Exception, string>
+        {
+            public override IKangarooConverter<Exception, string> Converter { get; set; }
+
+            public override IKangarooExportWorker<string> Worker { get; set; }
+
+            public override Predicate<Exception> Filter { get; set; }
+        }
+
+        public class KangarooExportWorkerStringToConsole : IKangarooExportWorker<string>
+        {
+            public void Export(string[] input)
+            {
+                foreach (var item in input)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"Export: ");
+                    Console.ResetColor();
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine($"{input.Length} item(s) exported.");
+            }
+        }
+    }
+}
