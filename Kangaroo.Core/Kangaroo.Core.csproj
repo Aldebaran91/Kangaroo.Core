@@ -3,12 +3,22 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Kangaroo.Core</AssemblyName>
-    <Version>2.0.0.0</Version>
+    <Version>2.0.0</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- NuGet package metadata -->
+    <PackageId>Kangaroo.Core</PackageId>
     <Title>Kangaroo.Core</Title>
-    <Authors>BURGGASSER Philip</Authors>
+    <Authors>Philip Burggasser</Authors>
+    <Description>A .NET library for standardized data collection and export with pluggable, category-based export managers and converters.</Description>
+    <PackageProjectUrl>https://github.com/Aldebaran91/Kangaroo.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aldebaran91/Kangaroo.Core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>kangaroo;queue;data-collection;export;pipeline;concurrent;dotnet</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,6 +33,10 @@
     <Compile Remove="Implementations\**" />
     <EmbeddedResource Remove="Implementations\**" />
     <None Remove="Implementations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

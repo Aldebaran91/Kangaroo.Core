@@ -2,9 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Version>2.0.0.0</Version>
+    <Version>2.0.0</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
+
+    <!-- NuGet package metadata -->
+    <PackageId>Kangaroo.Core.Interfaces</PackageId>
+    <Title>Kangaroo.Core.Interfaces</Title>
+    <Authors>Philip Burggasser</Authors>
+    <Description>Interface contracts for the Kangaroo data collection and export library.</Description>
+    <PackageProjectUrl>https://github.com/Aldebaran91/Kangaroo.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aldebaran91/Kangaroo.Core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>kangaroo;queue;data-collection;export;interfaces;dotnet</PackageTags>
   </PropertyGroup>
 
 </Project>
