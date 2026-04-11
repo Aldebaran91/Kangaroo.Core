@@ -9,7 +9,6 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>Kangaroo.Core</Title>
     <Authors>BURGGASSER Philip</Authors>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
